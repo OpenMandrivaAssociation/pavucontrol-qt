@@ -18,6 +18,7 @@ BuildRequires:	cmake(lxqt)
 BuildRequires:	cmake(lxqt-build-tools)
 BuildRequires:	cmake
 BuildRequires:	ninja
+BuildRequires:	qmake5
 Requires:	pulseaudio
 Requires(post,postun):	desktop-file-utils
 Provides:	pulseaudio-volume-control
