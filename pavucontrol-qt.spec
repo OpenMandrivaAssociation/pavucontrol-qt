@@ -1,21 +1,23 @@
 Summary:	Volume control for Pulseaudio sound server for Linux, Qt port
 Name:		pavucontrol-qt
-Version:	0.1.0
+Version:	0.2.0
 Release:	1
 License:	GPLv2+
 Group:		Sound
 Url:		https://github.com/lxde/pavucontrol-qt
-Source0:	https://github.com/lxde/pavucontrol-qt/archive/%{version}.tar.gz
+Source0:	https://github.com/lxde/pavucontrol-qt/releases/download/%{version}/%{name}-%{version}.tar.xz
 Source1:	%{name}-16.png
 Source2:	%{name}-32.png
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libpulse-mainloop-glib)
 BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	cmake(Qt5DBus)
 BuildRequires:	cmake(Qt5Widgets)
 BuildRequires:	cmake(Qt5LinguistTools)
 BuildRequires:	cmake(lxqt)
-BuildRequires:	cmake(XdgUserDirs)
-BuildRequires:	cmake ninja
+BuildRequires:	cmake(lxqt-build-tools)
+BuildRequires:	cmake
+BuildRequires:	ninja
 Requires:	pulseaudio
 Requires(post,postun):	desktop-file-utils
 Provides:	pulseaudio-volume-control
@@ -33,10 +35,10 @@ each playback stream separately.
 %cmake_qt5 -DPULL_TRANSLATIONS:BOOL=OFF -G Ninja
 
 %build
-ninja -C build
+%ninja -C build
 
 %install
-DESTDIR="%{buildroot}" ninja install -C build
+%ninja_install -C build
 
 sed -i "s/^Icon=.*/Icon=%{name}/" %{buildroot}%{_datadir}/applications/%{name}.desktop
 
@@ -47,10 +49,10 @@ desktop-file-install --vendor="" \
 	--remove-category="Application" \
 	--dir %{buildroot}%{_datadir}/applications \
 	%{buildroot}%{_datadir}/applications/%{name}.desktop
-  
+
 #icons install
-install -D -m 0644 %SOURCE1 %{buildroot}%{_miconsdir}/%{name}.png
-install -D -m 0644 %SOURCE2 %{buildroot}%{_iconsdir}/%{name}.png
+install -D -m 0644 %{SOURCE1} %{buildroot}%{_miconsdir}/%{name}.png
+install -D -m 0644 %{SOURCE2} %{buildroot}%{_iconsdir}/%{name}.png
 
 %files
 %doc LICENSE
@@ -58,4 +60,3 @@ install -D -m 0644 %SOURCE2 %{buildroot}%{_iconsdir}/%{name}.png
 %{_datadir}/applications/%{name}.desktop
 %{_miconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
-
