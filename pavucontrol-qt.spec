@@ -1,7 +1,7 @@
 Summary:	Volume control for Pulseaudio sound server for Linux, Qt port
 Name:		pavucontrol-qt
 Version:	0.3.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Sound
 Url:		https://github.com/lxde/pavucontrol-qt
@@ -55,8 +55,11 @@ desktop-file-install --vendor="" \
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_miconsdir}/%{name}.png
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_iconsdir}/%{name}.png
 
+ln -s %{name} %{buildroot}%{_bindir}/pavucontrol
+
 %files
 %doc LICENSE
+%{_bindir}/pavucontrol
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_miconsdir}/%{name}.png
