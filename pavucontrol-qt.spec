@@ -32,7 +32,7 @@ each playback stream separately.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 %cmake_qt5 -DPULL_TRANSLATIONS:BOOL=OFF -G Ninja
 
 %build
