@@ -1,7 +1,7 @@
 Summary:	Volume control for Pulseaudio sound server for Linux, Qt port
 Name:		pavucontrol-qt
-Version:	1.2.0
-Release:	4
+Version:	1.3.0
+Release:	1
 License:	GPLv2+
 Group:		Sound
 Url:		https://github.com/lxqt/pavucontrol-qt
