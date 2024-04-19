@@ -1,6 +1,6 @@
 Summary:	Volume control for Pulseaudio sound server for Linux, Qt port
 Name:		pavucontrol-qt
-Version:	1.4.0
+Version:	2.0.0
 Release:	1
 License:	GPLv2+
 Group:		Sound
@@ -11,14 +11,13 @@ Source2:	%{name}-32.png
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libpulse-mainloop-glib)
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	cmake(Qt5DBus)
-BuildRequires:	cmake(Qt5Widgets)
-BuildRequires:	cmake(Qt5LinguistTools)
+BuildRequires:	cmake(Qt6DBus)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6LinguistTools)
 BuildRequires:	cmake(lxqt)
-BuildRequires:	cmake(lxqt-build-tools)
+BuildRequires:	cmake(lxqt2-build-tools)
 BuildRequires:	cmake
 BuildRequires:	ninja
-BuildRequires:	qmake5
 Requires:	pulseaudio
 Requires(post,postun):	desktop-file-utils
 Provides:	pulseaudio-volume-control
@@ -31,9 +30,8 @@ you to control both the volume of hardware devices and of
 each playback stream separately.
 
 %prep
-%setup -q
-%autopatch -p1
-%cmake_qt5 -DPULL_TRANSLATIONS:BOOL=OFF -G Ninja
+%autosetup -p1
+%cmake -DPULL_TRANSLATIONS:BOOL=OFF -G Ninja
 
 %build
 %ninja -C build
