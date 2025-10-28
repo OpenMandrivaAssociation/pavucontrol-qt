@@ -16,11 +16,11 @@ BuildRequires:	cmake(Qt6Widgets)
 BuildRequires:	cmake(Qt6LinguistTools)
 BuildRequires:	cmake(lxqt)
 BuildRequires:	cmake(lxqt2-build-tools)
-BuildRequires:	cmake
-BuildRequires:	ninja
+BuildRequires:	desktop-file-utils
 Requires:	pulseaudio
-Requires(post,postun):	desktop-file-utils
 Provides:	pulseaudio-volume-control
+BuildSystem:	cmake
+BuildOption:	-DPULL_TRANSLATIONS:BOOL=OFF
 
 %description
 Pulseaudio Volume Control (pavucontrol) is a simple 
@@ -29,16 +29,7 @@ server. In contrast to classic mixer tools this one allows
 you to control both the volume of hardware devices and of 
 each playback stream separately.
 
-%prep
-%autosetup -p1
-%cmake -DPULL_TRANSLATIONS:BOOL=OFF -G Ninja
-
-%build
-%ninja -C build
-
-%install
-%ninja_install -C build
-
+%install -a
 sed -i "s/^Icon=.*/Icon=%{name}/" %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 desktop-file-install --vendor="" \
@@ -52,8 +43,6 @@ desktop-file-install --vendor="" \
 #icons install
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_miconsdir}/%{name}.png
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_iconsdir}/%{name}.png
-
-%find_lang %{name} --with-qt --all-name
 
 %files -f %{name}.lang
 %doc LICENSE
